@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class Knight : Defender {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Awake() {
+        Inited();
+    }
+    
+    void Inited() {
+        InitUI();
+        InitStat();
+
+        hp = 20.0f + hpv;
+        dmg = 2.0f + dmgv;
+        defense = 2.0f + dfv;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }
