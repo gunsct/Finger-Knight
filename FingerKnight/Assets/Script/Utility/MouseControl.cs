@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraDrag : MonoBehaviour {
+public class MouseControl : DonDeleteSingleton<MouseControl> {
     public Transform cam;
 
     Vector3 PrePos = Vector3.zero;
+    public Vector3 DestPos = Vector3.zero;
     public float movespd = 20.0f;
     
-    public void Click() {
+    public void Down() {
         cam = Camera.main.transform;
+    }
+
+    public void Click() {
+        if(CharStateUI.Instance.CR.state == EnumDate.E_CharState.MOVE)
+            DestPos = Input.mousePosition;
     }
 
     public void Drag() {//카메라 드래그 나중에 마우스에서 터치로 바꿔야함

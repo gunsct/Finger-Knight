@@ -15,10 +15,11 @@ public class Knight : Defender {
         hp = 20.0f + hpv;
         dmg = 2.0f + dmgv;
         defense = 2.0f + dfv;
+        spd = 1.0f;
     }
 
     // Update is called once per frame
-    void Update () {
-		
+     void Update () {
+        base.Update();
 	}
 }

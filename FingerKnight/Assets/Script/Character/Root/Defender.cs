@@ -12,8 +12,9 @@ public class Defender : CharacterRoot {
     }
 
     public override void Defend() {
+        base.Defend();
+
         defense = defense * 2f;
         state = EnumDate.E_CharState.DEFEND;
-        stateUI.gameObject.SetActive(false);
     }
 }

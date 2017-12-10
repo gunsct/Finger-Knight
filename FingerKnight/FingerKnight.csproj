@@ -96,10 +96,10 @@
     <Compile Include="Assets\Script\Manager\StateStorge\StateManager.cs" />
     <Compile Include="Assets\Script\Manager\UI\CharStateUI.cs" />
     <Compile Include="Assets\Script\Manager\UI\UIManager.cs" />
-    <Compile Include="Assets\Script\Utility\CameraDrag.cs" />
     <Compile Include="Assets\Script\Utility\CopyComponent.cs" />
     <Compile Include="Assets\Script\Utility\DeleteSingleTon.cs" />
     <Compile Include="Assets\Script\Utility\DonDeleteSingleTon.cs" />
+    <Compile Include="Assets\Script\Utility\MouseControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Map.txt" />
