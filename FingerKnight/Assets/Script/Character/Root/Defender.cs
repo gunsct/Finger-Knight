@@ -8,6 +8,7 @@ public class Defender : CharacterRoot {
         dfv = 0.5f;
         dmgv = 0.5f;
         spdv = 0.1f;
+        atspdv = -0.1f;
         state = EnumDate.E_CharState.NONE;
     }
 

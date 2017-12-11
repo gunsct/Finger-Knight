@@ -6,16 +6,38 @@ public class MouseControl : DonDeleteSingleton<MouseControl> {
     public Transform cam;
 
     Vector3 PrePos = Vector3.zero;
-    public Vector3 DestPos = Vector3.zero;
+    public Vector3 DestPos = Vector3.zero, StPos;
     public float movespd = 20.0f;
-    
+
+    private void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 8)) {
+                if (hit.collider.tag == "Player") {
+                    if(CharStateUI.Instance.gameObject.activeSelf == false)
+                        hit.collider.gameObject.GetComponent<CharacterRoot>().StateUIOn();
+                    Debug.Log("hit player");
+                }
+            }
+        }
+    }
+
     public void Down() {
         cam = Camera.main.transform;
     }
 
-    public void Click() {
-        if(CharStateUI.Instance.CR.state == EnumDate.E_CharState.MOVE)
-            DestPos = Input.mousePosition;
+    public void Click() {//클릭좌표와 현재 캐릭터 위치를 저장
+        if (CharStateUI.Instance.CR.state == EnumDate.E_CharState.MOVE) {
+            Vector3 clickpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+            DestPos = new Vector3(clickpos.x, clickpos.y, 0f);
+            StPos = CharStateUI.Instance.CR.transform.localPosition;
+        }
+    }
+
+    public void InitClickPos() {//좌표 리셋해서 캐릭터 이동 안하게 제한
+        StPos = DestPos = Vector3.zero;
     }
 
     public void Drag() {//카메라 드래그 나중에 마우스에서 터치로 바꿔야함

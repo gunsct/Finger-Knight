@@ -16,6 +16,7 @@ public class Knight : Defender {
         dmg = 2.0f + dmgv;
         defense = 2.0f + dfv;
         spd = 1.0f;
+        atspd = 2.0f;
     }
 
     // Update is called once per frame
