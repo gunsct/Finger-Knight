@@ -85,6 +85,7 @@
     <Compile Include="Assets\Script\Character\Root\Attacker.cs" />
     <Compile Include="Assets\Script\Character\Root\CharacterRoot.cs" />
     <Compile Include="Assets\Script\Character\Root\Defender.cs" />
+    <Compile Include="Assets\Script\Character\Root\EnemyTargeter.cs" />
     <Compile Include="Assets\Script\Character\Root\LongAttacker.cs" />
     <Compile Include="Assets\Script\Character\Warrior.cs" />
     <Compile Include="Assets\Script\Manager\Date\EnumDate.cs" />

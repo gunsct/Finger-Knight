@@ -16,9 +16,15 @@ public class MouseControl : DonDeleteSingleton<MouseControl> {
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 8)) {
                 if (hit.collider.tag == "Player") {
-                    if(CharStateUI.Instance.gameObject.activeSelf == false)
-                        hit.collider.gameObject.GetComponent<CharacterRoot>().StateUIOn();
+                    hit.collider.gameObject.GetComponent<CharacterRoot>().StateUIOn();
                     Debug.Log("hit player");
+                }
+
+                if (hit.collider.tag == "Enemy") {
+                    if (CharStateUI.Instance.CR.state == EnumDate.E_CharState.ATTACK) {
+                        CharStateUI.Instance.CR.Target = hit.collider.gameObject.GetComponent<CharacterRoot>().gameObject;
+                        Debug.Log("hit enemy");
+                    }
                 }
             }
         }
@@ -29,7 +35,7 @@ public class MouseControl : DonDeleteSingleton<MouseControl> {
     }
 
     public void Click() {//클릭좌표와 현재 캐릭터 위치를 저장
-        if (CharStateUI.Instance.CR.state == EnumDate.E_CharState.MOVE) {
+        if (CharStateUI.Instance.CR != null) {
             Vector3 clickpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
             DestPos = new Vector3(clickpos.x, clickpos.y, 0f);
             StPos = CharStateUI.Instance.CR.transform.localPosition;

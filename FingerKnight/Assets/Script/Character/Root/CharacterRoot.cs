@@ -13,7 +13,11 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
     protected float hpv, dfv, dmgv, rangev, spdv, atspdv;
 
     [SerializeField]
-    protected List<Transform> arr_Target;
+    protected GameObject o_Target;
+    public GameObject Target { get { return o_Target; } set { o_Target = value; } }
+    [SerializeField]
+    private List<CharacterRoot> arr_Target;
+    public List<CharacterRoot> ArrTarget { get { return arr_Target; } set { arr_Target = value; } }
     [SerializeField]
     Vector3 StPos, EndPos, Dir, MoveVec;
     [SerializeField]
@@ -30,6 +34,12 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
         //상태별 행동 나중에 트랜스로 다시 넣자..
         if (state == EnumDate.E_CharState.MOVE) {//마우스 컨트롤에서 클릭좌표랑 클릭할때 캐릭터 위치 가져와 이동시킴
             Moving(MouseControl.Instance.DestPos);
+        }
+        if (state == EnumDate.E_CharState.ATTACK) {
+            if(o_Target != null)
+                Moving(o_Target.transform.localPosition);
+            else
+                Moving(MouseControl.Instance.DestPos);
         }
     }
     public void InitUI() {
@@ -64,16 +74,24 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
             }
 
             else if(state == EnumDate.E_CharState.ATTACK) {
-                if (dist > 0.5f) {//대상까지 미도달시
-                    if (arr_Target != null) {//목록에 적 있으면 공격
+                Debug.Log("1");
+                if (dist > 0.05f) {//대상까지 미도달시
+                    if (arr_Target.Count != 0) {//목록에 적 있으면 공격
+                        Debug.Log("2");
                         //공격함수 호출
+                        Attacking();
                     }
-                    else//없으면 계속 이동
+                    else {//없으면 계속 이동
+                        Debug.Log("3");
                         transform.localPosition -= MoveVec * spd * Time.deltaTime;
+                    }
                 }
                 else {//목표점 도달 후 주변에 적 있으면 공격해야함
-                    if (arr_Target != null) {
+                    Debug.Log("4");
+                    if (arr_Target.Count != 0) {
+                        Debug.Log("5");
                         //공격함수 호출
+                        Attacking();
                     }
                 }
             }
@@ -89,7 +107,7 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
     }
     
     void Attacking() {
-        state = EnumDate.E_CharState.NONE;
+        MoveStop();
         StartCoroutine(CAttack(atspd));
     }
 
@@ -103,6 +121,7 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
         else {
             Destroy(gameObject);
         }
+        Debug.Log("attacked");
     }
     
     public virtual void Defend() {
@@ -119,28 +138,24 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
     }
 
     IEnumerator CAttack(float atspd) {//나중에..
+        Debug.Log("ca");
         state = EnumDate.E_CharState.NONE;
         //공격 구현
         //리스트에서 적 불러다가 attacked 연결해주기
         yield return new WaitForSeconds(atspd);
-        
+
         //적 있으면 다시 어택으로 바꾸고 반복시키고 없으면 논으로 바꿔
+        if (arr_Target[0] != null) {
+            Debug.Log("act");
+            arr_Target[0].Attacked(dmg);
+            state = EnumDate.E_CharState.ATTACK;
+        }
     }
 
     //적 타겟팅해서 소팅하는 부분, 자동으로 함
     public void EnemyListSort() {
-        arr_Target.Sort(delegate (Transform t1, Transform t2) {
-            return Vector3.Distance(t1.position, transform.position).CompareTo(Vector3.Distance(t2.position, transform.position));
+        arr_Target.Sort(delegate (CharacterRoot t1, CharacterRoot t2) {
+            return Vector3.Distance(t1.transform.position, transform.position).CompareTo(Vector3.Distance(t2.transform.position, transform.position));
         });
-    }
-    //아래부분 타겟레인지 클래스 하나 만들어서 거기에 넣어 연결해주자
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other != null)
-            arr_Target.Add(other.transform);
-    }
-
-    private void OnTriggerExit2D(Collider2D other) {
-        if (other != null)
-            arr_Target.Remove(other.transform);
     }
 }
