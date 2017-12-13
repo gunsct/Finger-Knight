@@ -15,7 +15,11 @@ public class EnemyTargeter : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if (other != null)
+        if (other != null) {
             c_Parent.ArrTarget.Remove(other.GetComponent<EnemyTargeter>().c_Parent);
+
+            if(c_Parent.tag == "Player")
+                c_Parent.Target = null;
+        }
     }
 }

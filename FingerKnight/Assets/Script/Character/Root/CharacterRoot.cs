@@ -51,6 +51,7 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
 
     public virtual void Move() {
         state = EnumDate.E_CharState.MOVE;
+        MoveStop();
         //이동부 구현
     }
 
@@ -139,13 +140,14 @@ public class CharacterRoot : MonoBehaviour {//캐릭터 기본 스탯
 
     IEnumerator CAttack(float atspd) {//나중에..
         Debug.Log("ca");
+        if(state == EnumDate.E_CharState.ATTACK)
         state = EnumDate.E_CharState.NONE;
         //공격 구현
         //리스트에서 적 불러다가 attacked 연결해주기
         yield return new WaitForSeconds(atspd);
 
         //적 있으면 다시 어택으로 바꾸고 반복시키고 없으면 논으로 바꿔
-        if (arr_Target[0] != null) {
+        if (arr_Target.Count != 0) {
             Debug.Log("act");
             arr_Target[0].Attacked(dmg);
             state = EnumDate.E_CharState.ATTACK;

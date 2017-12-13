@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Character\Knight.cs" />
+    <Compile Include="Assets\Script\Character\Root\AIRoot.cs" />
     <Compile Include="Assets\Script\Character\Root\Attacker.cs" />
     <Compile Include="Assets\Script\Character\Root\CharacterRoot.cs" />
     <Compile Include="Assets\Script\Character\Root\Defender.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Script\Character\Root\LongAttacker.cs" />
     <Compile Include="Assets\Script\Character\Warrior.cs" />
     <Compile Include="Assets\Script\Manager\Date\EnumDate.cs" />
+    <Compile Include="Assets\Script\Manager\Date\UpgradeDate.cs" />
     <Compile Include="Assets\Script\Manager\Game\GameManager.cs" />
     <Compile Include="Assets\Script\Manager\Game\MapSetting.cs" />
     <Compile Include="Assets\Script\Manager\Root\ManagerRoot.cs" />
