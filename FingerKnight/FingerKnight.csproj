@@ -89,6 +89,8 @@
     <Compile Include="Assets\Script\Character\Root\EnemyTargeter.cs" />
     <Compile Include="Assets\Script\Character\Root\LongAttacker.cs" />
     <Compile Include="Assets\Script\Character\Warrior.cs" />
+    <Compile Include="Assets\Script\Manager\Date\DateRoot.cs" />
+    <Compile Include="Assets\Script\Manager\Date\DateSaveManager.cs" />
     <Compile Include="Assets\Script\Manager\Date\EnumDate.cs" />
     <Compile Include="Assets\Script\Manager\Date\UpgradeDate.cs" />
     <Compile Include="Assets\Script\Manager\Game\GameManager.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Assets\Script\Manager\StateStorge\StateManager.cs" />
     <Compile Include="Assets\Script\Manager\UI\CharStateUI.cs" />
     <Compile Include="Assets\Script\Manager\UI\UIManager.cs" />
+    <Compile Include="Assets\Script\Manager\Upgrade\UpgradeManager.cs" />
     <Compile Include="Assets\Script\Utility\CopyComponent.cs" />
     <Compile Include="Assets\Script\Utility\DeleteSingleTon.cs" />
     <Compile Include="Assets\Script\Utility\DonDeleteSingleTon.cs" />
